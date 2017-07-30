@@ -10,7 +10,7 @@ title: Aaron Wiegel - Data Scientist
 email: aawiegel@gmail.com
 description: Blog featuring projects I have worked on
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://aawiegel.github.io" # the base hostname & protocol for your site
 twitter_username: 
 github_username:  aawiegel
 
