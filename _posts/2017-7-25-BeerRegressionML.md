@@ -25,4 +25,9 @@ Although this provided more information about the beer to the regression algorit
 
 # Model building
 
-Once I produced additional features for each beer, I ran several different kinds of regression models.
+Once I produced additional features for each beer, I ran several different kinds of regression models. Of these, I will focus on Lasso and Gradient Boosted Trees Regression. 
+
+## Lasso
+
+[Lasso regression](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a method of linear regression that helps prevent the model from [overfitting](https://en.wikipedia.org/wiki/Overfitting) (that is, only making good predictions on the original data and not any new data) . It accomplishes this by penalizing model coefficients for getting too large. Lasso can actually set certain coefficients to zero, which can be a handy way to reduce the number of variables your model uses. Because of this property, lasso is often used for feature selection in other types of models even if the actual results of the regression are not used.
+
