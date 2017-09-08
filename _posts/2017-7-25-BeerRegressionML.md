@@ -3,7 +3,7 @@ layout: post
 title: Beer Regression Machine Learning
 ---
 
-# Introduction
+# Summary
 
 Given my interest in home brewing and craft beer, I wanted to analyze the preferences of craft beer geeks, with the hope of using this information to help advise new breweries on which beers to include in their initial tap list. These consumers are novelty-seeking and will spread word of a brewery they like to friends or online, so winning over these consumers early is the key to success.
 
@@ -15,7 +15,15 @@ I obtained approximately 35,000 beers with valid BeerAdvocate scores. The distri
 
 Most of the beers receive scores of about 85 with an approximately symmetric distribution. Few beers in this subset received ratings lower than 70, although this particular subset includes only ales, which tend to be more highly rated. Lagers (the kind of beer most non-beer geeks are familiar with) such as [Budweiser](https://www.beeradvocate.com/beer/profile/29/65/) are generally very poorly rated except for, "inexplicably", [Pabst Blue Ribbon](https://www.beeradvocate.com/beer/profile/447/1331/) and [Schlitz](https://www.beeradvocate.com/beer/profile/106/44315/) (Hipsters!!!! *shakes fist*). I did not include lagers for this project, although I did include them for a beer recommendation system I developed later.
 
-# Feature Engineering
+Of the (less subjective) characteristics associated with each beer, the number of ratings and ABV were most strongly associated with a high score. In other words, people will tend to rate beers that are higher in alcohol or have a lot of ratings better. Given that, a new brewery would probably want to have an imperial/double IPA, imperial stout, or Belgian tripel/quad on tap. Just don't get in trouble with the Alcohol Control Board! Ratings also seemed to play a key role, so generating a lot of hype around the beer could help drive ratings up (see [Pliny the Elder](https://www.beeradvocate.com/beer/profile/863/7971/)). This may be difficult to accomplish for a smaller, starting brewery, but you can always rely on everyone's marketing friend, artificial scarcity (Just don't lose the trust of your customers).
+
+Some of the more minor characteristics that people tended to prefer were sour, hoppy, and German beers. The former two are not necessarily all that revealing to anyone who understands the current craft beer market. In addition, a sour beer might be a challenge for a new brewery, considering that a good sour beer often requires at least 3-4 months of aging compared to the typical 2 weeks for most ales. However, interestingly, a good, properly-made Hefeweissen (i.e., what you won't find at most American breweries) would be a good choice to add to your tap list in addition to the typical hoppy/sour fare.
+
+# Technical Details
+
+In this section, I go over some of the more technical details of how the model was constructed.
+
+## Feature Engineering
 
 Once I had collected the data, I began building machine learning regression models to explain beer preferences. The initial models using the original features (variables) were not all that interesting because it came up with the brilliant insight that people like beers that taste and smell good (PBR and Schlitz not withstanding) with a high <i>R</i><sup>2</sup> score (>0.9). Given that taste and smell are also used to calculate the BeerAdvocate score, this was also circular reasoning, so I removed sensory data (taste, smell, mouthfeel, appearance) from the data. 
 
@@ -23,11 +31,22 @@ In addition, much of the information about the beer that was embedded in the sty
 
 Although this provided more information about the beer to the regression algorithm, this was only a crude approximation of the actual characteristics of the beer. In reality, the style of a beer is a very loose representation of the beer as brewers tend to call beers whatever they feel like. Furthermore, some styles of beer such as American IPA (India Pale Ale) are incredibly broad since the hops used could provide a citrusy, herbal, floral, or other aroma. (Lately, hop farmers in the Northwestern US have been experimenting a lot with breeding many types of [new hops](https://learn.kegerator.com/mosaic-hops/) with different aromas or flavors from the typical noble German hops.)
 
-# Model building
+## Lasso Regression
 
-Once I produced additional features for each beer, I ran several different kinds of regression models. Of these, I will focus on Lasso and Gradient Boosted Trees Regression. 
+Once I produced additional features for each beer, I ran several different kinds of regression models. Although it did not necessarily produce the best <i>R</i><sup>2</sup> score, I ended up going with [Lasso regression](https://en.wikipedia.org/wiki/Lasso_(statistics)) because I was more interested in explanation, so a simpler, easy to interpret model like Lasso is more appropriate than, for example, Gradient Boosted Trees regression. Something like Boosted Trees is best for predictions, where we just care about predicting a value rather than explaining it.
 
-## Lasso
+In any case, Lasso is a method of linear regression that helps prevent the model from [overfitting](https://en.wikipedia.org/wiki/Overfitting) (that is, only making good predictions on the original data and not any new data) . It accomplishes this by penalizing model coefficients for getting too large. Lasso can actually set certain coefficients to zero, which can be a handy way to reduce the number of variables your model uses. Because of this property, lasso is often used for feature selection via [regularization](https://en.wikipedia.org/wiki/Regularization_(mathematics)) in other types of more complex models unrelated to simple regression models.
 
-[Lasso regression](https://en.wikipedia.org/wiki/Lasso_(statistics)) is a method of linear regression that helps prevent the model from [overfitting](https://en.wikipedia.org/wiki/Overfitting) (that is, only making good predictions on the original data and not any new data) . It accomplishes this by penalizing model coefficients for getting too large. Lasso can actually set certain coefficients to zero, which can be a handy way to reduce the number of variables your model uses. Because of this property, lasso is often used for feature selection in other types of models even if the actual results of the regression are not used.
+Graphing the coefficients (including the sensory information) can give us an idea of which characteristics best predicted the beer's rating and which characteristics did not matter (that is, were zero).
+
+<img src="https://aawiegel.github.io/assets/coefficients_all.png" alt="BeerAdvocate score histogram" style="width: 800px;height: 600px;"/>
+
+As discussed above, traits like taste and smell were strongly associated with a high rating (surprise, people like beer that tastes and smells good!) More interestingly, the number of ratings was strongly correlated with the BeerAdvocate score. I interpreted this to mean that beers that are widely known and/or hyped a lot will tend to get a better rating. A great example of this is [Pliny the Elder](https://www.beeradvocate.com/beer/profile/863/7971/), a double IPA from the Russian River Brewing Company, that has a BeerAdvocate score of 100 and is relentlessly hyped by creating artificial scarcity. (I've had it before; it's good, but not <i>that good</i>.) 
+
+Traits that the brewer has more control over (hue, abv, etc.) played a more minor effect on the final rating, but I have plotted them below regardless:
+
+<img src="https://aawiegel.github.io/assets/coefficients_zoomed.png" alt="BeerAdvocate score histogram" style="width: 800px;height: 600px;"/>
+
+Here, we can see that hoppy, sour, and German beers along with beers high in alcohol tend to get better scores. Again, these effects are minor, so I would suggest focusing on marketing as I discussed above.
+
 
