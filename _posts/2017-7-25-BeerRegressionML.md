@@ -11,7 +11,7 @@ To help obtain this information, I web crawled [BeerAdvocate](https://www.beerad
 
 I obtained approximately 35,000 beers with valid BeerAdvocate scores. The distribution of scores is shown below: 
 
-<img src="https://aawiegel.github.io/assets/ba_hist.png" alt="BeerAdvocate score histogram" style="width: 800px;height: 600px;"/>
+<img src="https://aawiegel.github.io/assets/ba_hist.png" alt="BeerAdvocate score histogram" style="width: 90%;"/>
 
 Most of the beers receive scores of about 85 with an approximately symmetric distribution. Few beers in this subset received ratings lower than 70, although this particular subset includes only ales, which tend to be more highly rated. Lagers (the kind of beer most non-beer geeks are familiar with) such as [Budweiser](https://www.beeradvocate.com/beer/profile/29/65/) are generally very poorly rated except for, "inexplicably", [Pabst Blue Ribbon](https://www.beeradvocate.com/beer/profile/447/1331/) and [Schlitz](https://www.beeradvocate.com/beer/profile/106/44315/) (Hipsters!!!! *shakes fist*). I did not include lagers for this project, although I did include them for a beer recommendation system I developed later.
 
@@ -39,13 +39,13 @@ In any case, Lasso is a method of linear regression that helps prevent the model
 
 Graphing the coefficients (including the sensory information) can give us an idea of which characteristics best predicted the beer's rating and which characteristics did not matter (that is, were zero).
 
-<img src="https://aawiegel.github.io/assets/coefficients_all.png" alt="BeerAdvocate score histogram" style="width: 800px;height: 600px;"/>
+<img src="https://aawiegel.github.io/assets/coefficients_all.png" alt="BeerAdvocate score histogram" style="width: 90%;"/>
 
 As discussed above, traits like taste and smell were strongly associated with a high rating (surprise, people like beer that tastes and smells good!) More interestingly, the number of ratings was strongly correlated with the BeerAdvocate score. I interpreted this to mean that beers that are widely known and/or hyped a lot will tend to get a better rating. A great example of this is [Pliny the Elder](https://www.beeradvocate.com/beer/profile/863/7971/), a double IPA from the Russian River Brewing Company, that has a BeerAdvocate score of 100 and is relentlessly hyped by creating artificial scarcity. (I've had it before; it's good, but not <i>that good</i>.) 
 
 Traits that the brewer has more control over (hue, abv, etc.) played a more minor effect on the final rating, but I have plotted them below regardless:
 
-<img src="https://aawiegel.github.io/assets/coefficients_zoomed.png" alt="BeerAdvocate score histogram" style="width: 800px;height: 600px;"/>
+<img src="https://aawiegel.github.io/assets/coefficients_zoomed.png" alt="BeerAdvocate score histogram" style="width:90%;"/>
 
 Here, we can see that hoppy, sour, and German beers along with beers high in alcohol tend to get better scores. Again, these effects are minor, so I would suggest focusing on marketing as I discussed above.
 
