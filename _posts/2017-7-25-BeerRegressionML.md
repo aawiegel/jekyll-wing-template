@@ -21,7 +21,7 @@ Some of the more minor characteristics that people tended to prefer were sour, h
 
 # Technical Details
 
-In this section, I go over some of the more technical details of how the model was constructed.
+In this section, I go over some of the more technical details of how the model was constructed. The code for this project is available via [Github](https://github.com/aawiegel/Beer-Regression).
 
 ## Feature Engineering
 
