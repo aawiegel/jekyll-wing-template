@@ -51,7 +51,7 @@ Examining this further, I found that the school in the dataset with the most num
 
 To ensure that the model was not just picking up on the characteristics of ITT Tech, I ran the Random Forest model again after removing ITT Tech from the data. Thankfully, the AUC score only declined to 0.89, suggesting that the model was not only picking up on ITT Tech. The feature importance of branches also declined to only 5% of the splits, although it still was the most important feature that the RandomForest made decisions based on.
 
-<img src="https://aawiegel.github.io/assets/featimp_rf.png" alt="feature important without ITT Tech" sytle="width: 100%;"/>
+<img src="https://aawiegel.github.io/assets/featimp_rf.png" alt="feature important without ITT Tech" style="width: 100%;"/>
 
 Here, I plotted the ROC curve and precision recall curve for the Random Forest model without ITT Tech in the data.
 
