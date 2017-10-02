@@ -58,3 +58,12 @@ Here, I plotted the ROC curve and precision recall curve for the Random Forest m
 <img src="https://aawiegel.github.io/assets/Random%20Forest.png" alt="ROC and Precision-Recall Curves" style="width: 100%;"/>
 
 Here, the receiver operating characteristic plot on the left compares the true positive rate (correctly predicting that a college closed) to the false positive rate (incorrectly predicting that a college closed). Essentially, the more we try to predict college closures, the more we will make false predictions of closure. In addition, if our model is just guessing, we will fall along the diagonal orange line in the center. Similarly, the plot on the right is the the Precision-Recall curve. Here, we compare recall (the true positive rate) to the precision (how many of our predicted positives are actually positive). Again, there is a trade-off between the two where the more positive values you correctly predict, the more times you incorrectly predict negatives as positives.
+
+<br/>
+
+If that was confusing (and it is to lots of people, so don't worry!), a metaphor may help explain the trade-off inherent in classification problems like this. Consider two different dog breeds as guard dogs, a yorkshire terrier and a labrador. The yorkshire terrier is very protective of their territory and will bark at almost anything, including a leaf landing on the ground (trust me, I live with one.) Because of this behavior, the dog will bark at everything, whether it's really a threat or not (like a burgular.) In this case, the yorkshire terrier has a high true positive rate/recall (it barks at everything, including burgulars) but a low precision (almost everything it barks at is not a threat.) In contrast, a labrador is a very friendly dog, playing fetch with whoever. The dog probably will not bark at a stranger, unless they really perceive that something is wrong. Therefore, the labrador has a low true positive rate/recall (it is likely to miss that burgular sneaking in) but a high precision (if it gets aggressive, there must be something really wrong.) 
+
+<img src="https://aawiegel.github.io/assets/bruno2.jpg" alt="Sir Yipsalot" style="width:100%;"/>
+High recall-low precision dog.
+
+<br/>
