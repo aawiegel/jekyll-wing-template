@@ -12,9 +12,9 @@ College and other forms of post-secondary education (like data science bootcamps
 <br/>
 
 To exacerbate matters, tuition (after adjusting for inflation) has also increased precipitously in the last fifteen years or so see chart), often making the choice of college an agonizing one for all those involved.
-<img src="https://aawiegel.github.io/assets/tuition.png" alt="college tuition at 4-year public universities" style="width: 90%;"/>
+<img src="https://aawiegel.github.io/assets/tuition.png" alt="college tuition at 4-year public universities" style="width: 100%;"/>
 To help give prospective students (and their parents) evaluate colleges before they apply and enroll, the Department of Education releases a [College Scorecard](https://collegescorecard.ed.gov/) that provides a quick summary of the performance and cost of different colleges. Here is an example of this report for the colleges near my zipcode.
-<img src="https://aawiegel.github.io/assets/college_sc.png" alt="College Scorecard Example" style="width: 90%;"/>
+<img src="https://aawiegel.github.io/assets/college_sc.png" alt="College Scorecard Example" style="width: 100%;"/>
 The data for average annual cost, graduate rate, and salary after attending is shown, but the Department of Education collects an enormous body of statistics on each college. These [statistics can be accessed](https://collegescorecard.ed.gov/data/) via download or a free API (application protocol interface) over a number of years. The data here is limited to 4-year universities, 2-year community colleges, and technical schools.
 
 <br/>
@@ -27,7 +27,7 @@ Given this, I thought it would be interesting to try to predict whether a school
 
 # Data Collection and Cleaning
 
-<img src="https://aawiegel.github.io/assets/data_collection.png" alt="data collection" style="width: 90%;"/>
+<img src="https://aawiegel.github.io/assets/data_collection.png" alt="data collection" style="width: 100%;"/>
 
 To obtain the data, I first downloaded the data definitions table from the Department of Education and stored it in a table in a Postgres SQL database. This table contains the API key for each variable so that it can be queried for information about each school. I then collected data for several different categories for each school. The school table included generic information about the school (e.g., private or public, etc.) along with whether it closed or lost its accreditation by 2017 or not. The other tables (student, aid, and repayment) included data from 2013 on the student demographics, types of federal aid received, and student loan default rates. In particular, I thought the latter two might be indicative of some of the shady practices of the for-profit schools I mentioned earlier.
 
@@ -43,7 +43,7 @@ Once the data was obtained form the SQL database and cleaned, I then applied sev
 
 Interestingly, however, when I examined the feature importances of the random forest, I noticed that the model really picked up on the number of branches as a very important feature for more than 12% of the splits as shown below:
 
-<img src="https://aawiegel.github.io/assets/featimp_rf_withITT.png" alt="feature importance" style="width: 90%;"/>
+<img src="https://aawiegel.github.io/assets/featimp_rf_withITT.png" alt="feature importance" style="width: 100%;"/>
 
 Examining this further, I found that the school in the dataset with the most number of branches was ITT Tech, which had 137 branches. [ITT Tech](http://www.latimes.com/business/la-fi-for-profit-schools-20160912-snap-story.html) was one very high profile college closure back in 2016, where all of the campuses closed down at once after state and federal officials filed lawsuits due to their fraudulant and predatory practices. Each of these branches is included as a separate entry in the data, so ITT Tech is somewhat overrepresented in the 900 schools that closed from 2013 to 2017. 
 
@@ -51,9 +51,9 @@ Examining this further, I found that the school in the dataset with the most num
 
 To ensure that the model was not just picking up on the characteristics of ITT Tech, I ran the Random Forest model again after removing ITT Tech from the data. Thankfully, the AUC score only declined to 0.89, suggesting that the model was not only picking up on ITT Tech. The feature importance of branches also declined to only 5% of the splits, although it still was the most important feature that the RandomForest made decisions based on.
 
-<img src="https://aawiegel.github.io/assets/featimp_rf.png" alt="feature important without ITT Tech" sytle="width: 90%;"/>
+<img src="https://aawiegel.github.io/assets/featimp_rf.png" alt="feature important without ITT Tech" sytle="width: 100%;"/>
 
 Here, I plotted the ROC curve and precision recall curve for the Random Forest model without ITT Tech in the data.
 
-<img src="https://aawiegel.github.io/assets/Random%20Forest.png" alt="ROC and Precision-Recall Curves" style="width: 90%;"/>
+<img src="https://aawiegel.github.io/assets/Random%20Forest.png" alt="ROC and Precision-Recall Curves" style="width: 100%;"/>
 
