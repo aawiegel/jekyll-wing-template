@@ -9,7 +9,7 @@ College closure can cause significant distress to currently enrolled students as
 
 I obtained the data I used from the College Scorecard API and stored it in a Postgres SQL database. A Random Forest model provides the best predictions of college closure in 2017, although there may be leakage problems in the data that artificially improve the predictions. In addition, the closure of ITT Tech accounted for nearly 16% of the positive class, but removing this school from the data did not negatively affect the predictions
 
-Since this model was backward-looking, I used the predicted (if uncalibrated) probabilities from the Random Forest model to assess the risk of a college closing as "low", "moderate", or "high. I created a [d3.js map](https://bl.ocks.org/aawiegel/raw/7a10425598c252d1074d867cc1b20c58/581b5ce6e448a0ceab4458df34d2458e241a0114/) that lets you explore which colleges are most at risk, which apparently includes lots of barber colleges.
+Since this model was backward-looking, I used the predicted (if uncalibrated) probabilities from the Random Forest model to assess the risk of a college closing as "low", "moderate", or "high". I created a [d3.js map](https://bl.ocks.org/aawiegel/raw/7a10425598c252d1074d867cc1b20c58/581b5ce6e448a0ceab4458df34d2458e241a0114/) that lets you explore which colleges are most at risk, which apparently includes lots of barber colleges.
 
 # Overview
 
