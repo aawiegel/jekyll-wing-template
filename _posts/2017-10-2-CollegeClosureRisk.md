@@ -7,7 +7,11 @@ title: College Closure Risk
 
 College closure can cause significant distress to currently enrolled students as they have to transfer to a new school where their previous credits may not be honored. Given the huge public and private investments into post-secondary education, I developed a model that tries to predict whether a college would close by 2017 from Department of Education data from 2013. During this time, there were several high profile closures of colleges, particularly for-profit private colleges with shady practices. 
 
+<br/>
+
 I obtained the data I used from the College Scorecard API and stored it in a Postgres SQL database. A Random Forest model provides the best predictions of college closure in 2017, although there may be leakage problems in the data that artificially improve the predictions. In addition, the closure of ITT Tech accounted for nearly 16% of the positive class, but removing this school from the data did not negatively affect the predictions.
+
+<br/>
 
 Since this model was backward-looking, I used the predicted (if uncalibrated) probabilities from the Random Forest model to assess the risk of a college closing in the future as "low", "moderate", or "high". I created a [d3.js map](https://bl.ocks.org/aawiegel/raw/7a10425598c252d1074d867cc1b20c58/581b5ce6e448a0ceab4458df34d2458e241a0114/) that lets you explore which colleges are most at risk, which apparently includes lots of barber colleges.
 
