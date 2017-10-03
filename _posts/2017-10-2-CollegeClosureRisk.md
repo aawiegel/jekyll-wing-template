@@ -5,6 +5,12 @@ title: College Closure Risk
 
 # Summary
 
+College closure can cause significant distress to currently enrolled students as they have to transfer to a new school where their previous credits may not be honored. Given the huge public and private investments into post-secondary education, I developed a model that tries to predict whether a college would close by 2017 from Department of Education data from 2013. During this time, there were several high profile closures of colleges, particularly for-profit private colleges with shady practices. 
+
+I obtained the data I used from the College Scorecard API and stored it in a Postgres SQL database. A Random Forest model provides the best predictions of college closure in 2017, although there may be leakage problems in the data that artificially improve the predictions. In addition, the closure of ITT Tech accounted for nearly 16% of the positive class, but removing this school from the data did not negatively affect the predictions
+
+Since this model was backward-looking, I used the predicted (if uncalibrated) probabilities from the Random Forest model to assess the risk of a college closing as "low", "moderate", or "high. I created a [d3.js map](https://bl.ocks.org/aawiegel/raw/7a10425598c252d1074d867cc1b20c58/581b5ce6e448a0ceab4458df34d2458e241a0114/) that lets you explore which colleges are most at risk, which apparently includes lots of barber colleges.
+
 # Overview
 
 College and other forms of post-secondary education (like data science bootcamps!) are increasingly a necessary investment to obtain and maintain the competitive skills in the labor market. Furthermore, an educated populace is important so that civic society can properly evaluate the complex trade offs involved in various economic, social, and geopolitical issues. Given both its public and private value, the performance of universities and other post-secondary institutions should be evaluated to ensure that students are actually learning and not spending too much time playing beer pong and flip cup. (Although some is certainly a key socially formative experience for young adults!)
@@ -53,17 +59,27 @@ To ensure that the model was not just picking up on the characteristics of ITT T
 
 <img src="https://aawiegel.github.io/assets/featimp_rf.png" alt="feature important without ITT Tech" style="width: 100%;"/>
 
-Here, I plotted the ROC curve and precision recall curve for the Random Forest model without ITT Tech in the data.
+# Model Evaluation
+
+To evaluate the model, I plotted the ROC curve and precision recall curve for the Random Forest model without ITT Tech in the data.
 
 <img src="https://aawiegel.github.io/assets/Random%20Forest.png" alt="ROC and Precision-Recall Curves" style="width: 100%;"/>
 
-Here, the receiver operating characteristic plot on the left compares the true positive rate (correctly predicting that a college closed) to the false positive rate (incorrectly predicting that a college closed). Essentially, the more we try to predict college closures, the more we will make false predictions of closure. In addition, if our model is just guessing, we will fall along the diagonal orange line in the center. Similarly, the plot on the right is the the Precision-Recall curve. Here, we compare recall (the true positive rate) to the precision (how many of our predicted positives are actually positive). Again, there is a trade-off between the two where the more positive values you correctly predict, the more times you incorrectly predict negatives as positives.
+Here, the receiver operating characteristic plot on the left compares the true positive rate (correctly predicting that a college closed) to the false positive rate (incorrectly predicting that a college closed) as the threshold for predicting closure increases. Essentially, the more we try to predict college closures, the more we will make false predictions of closure. In addition, if our model is just guessing, we will fall along the diagonal orange line in the center. Similarly, the plot on the right is the the Precision-Recall curve. Here, we compare recall (the true positive rate) to the precision (how many of our predicted positives are actually positive) as our threshold for closure increases. Again, there is a trade-off between the two where the more positive values you correctly predict, the more times you incorrectly predict negatives as positives. In both these cases, the model performs fairly well in both curves.
 
 <br/>
 
-If that was confusing (and it is to lots of people, so don't worry!), a metaphor may help explain the trade-off inherent in classification problems like this. Consider two different dog breeds as guard dogs, a yorkshire terrier and a labrador. The yorkshire terrier is very protective of their territory and will bark at almost anything, including a leaf landing on the ground (trust me, I live with one.) Because of this behavior, the dog will bark at everything, whether it's really a threat or not (like a burgular.) In this case, the yorkshire terrier has a high true positive rate/recall (it barks at everything, including burgulars) but a low precision (almost everything it barks at is not a threat.) In contrast, a labrador is a very friendly dog, playing fetch with whoever. The dog probably will not bark at a stranger, unless they really perceive that something is wrong. Therefore, the labrador has a low true positive rate/recall (it is likely to miss that burgular sneaking in) but a high precision (if it gets aggressive, there must be something really wrong.) 
+If that was confusing (and it is to lots of people, so don't worry!), a metaphor may help explain the trade-off inherent in classification problems like this. Consider two different dog breeds as guard dogs: a yorkshire terrier and a labrador. The yorkshire terrier is very protective of their territory and will bark at almost anything, including a leaf landing on the ground (trust me, I live with one.) Because of this behavior, the dog will bark at everything, whether it's really a threat or not (like a burgular.) In this case, the yorkshire terrier has a high true positive rate/recall (it barks at everything, including burgulars) but a low precision (almost everything it barks at is not a threat.) In contrast, a labrador is a very friendly dog, playing fetch with whoever. The dog probably will not bark at a stranger, unless they really perceive that something is wrong. Therefore, the labrador has a low true positive rate/recall (it is likely to miss that burgular sneaking in) but a high precision (if it gets aggressive, there must be something really wrong.) 
 
 <img src="https://aawiegel.github.io/assets/bruno2.jpg" alt="Sir Yipsalot" style="width:100%;"/>
 High recall-low precision dog.
 
 <br/>
+
+# Closure Risk Assessment
+
+Given that this was a backward-looking model, the results are probably not all that useful to the students like those at ITT Tech that saw their school close. To make these results more useful, I looked at the probability predicted by the random forest model (without ITT Tech) for the schools that remained open. Because these probabilities are not properly calibrated, I divided these into arbitrary "low risk", "medium risk", and "high risk" categories as shown below:
+
+<img src="https://aawiegel.github.io/assets/risk_dist.png" alt="risk dist" style="width:100%;"/>
+
+I then found which schools were medium or high risk and plotted them using an interactive map in d3.js [here](https://bl.ocks.org/aawiegel/raw/7a10425598c252d1074d867cc1b20c58/581b5ce6e448a0ceab4458df34d2458e241a0114/). The orange dots are medium risk and the red dots are high risk. Of the schools shown, it seems like a lot of beauty or barber colleges are at risk of closing. Let me know if you find any other patterns!
