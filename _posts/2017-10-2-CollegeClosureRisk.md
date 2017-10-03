@@ -15,6 +15,8 @@ I obtained the data I used from the College Scorecard API and stored it in a Pos
 
 Since this model was backward-looking, I used the predicted (if uncalibrated) probabilities from the Random Forest model to assess the risk of a college closing in the future as "low", "moderate", or "high". I created a [d3.js map](https://bl.ocks.org/aawiegel/raw/7a10425598c252d1074d867cc1b20c58/581b5ce6e448a0ceab4458df34d2458e241a0114/) that lets you explore which colleges are most at risk, which apparently includes lots of barber colleges.
 
+The code for this project can be found [here](https://github.com/aawiegel/CollegeClassification).
+
 # Overview
 
 College and other forms of post-secondary education (like data science bootcamps!) are increasingly a necessary investment to obtain and maintain the competitive skills in the labor market. Furthermore, an educated populace is important so that civic society can properly evaluate the complex trade offs involved in various economic, social, and geopolitical issues. Given both its public and private value, the performance of universities and other post-secondary institutions should be evaluated to ensure that students are actually learning and not spending too much time playing beer pong and flip cup. (Although some is certainly a key socially formative experience for young adults!)
@@ -87,3 +89,5 @@ Given that this was a backward-looking model, the results are probably not all t
 <img src="https://aawiegel.github.io/assets/risk_dist.png" alt="risk dist" style="width:100%;"/>
 
 I then found which schools were medium or high risk and plotted them using an interactive map in d3.js [here](https://bl.ocks.org/aawiegel/raw/7a10425598c252d1074d867cc1b20c58/581b5ce6e448a0ceab4458df34d2458e241a0114/). The orange dots are medium risk and the red dots are high risk. Of the schools shown, it seems like a lot of beauty or barber colleges are at risk of closing. Let me know if you find any other patterns!
+
+The code for this project can be found [here](https://github.com/aawiegel/CollegeClassification).
