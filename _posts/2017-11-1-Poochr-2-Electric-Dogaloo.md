@@ -1,4 +1,4 @@
-<i>This is a follow up to a previous <a href="https://aawiegel.github.io/2017/10/17/Poochr.html">post</a>. Try out the web app <a href="https://20171025t165554-dot-poochr-182700.appspot.com/">here</a>.</i>
+<i>This is a follow up to a previous <a href="https://aawiegel.github.io/2017/10/17/Poochr.html">post</a>. Try out the web app <a href="https://poochr-182700.appspot.com/">here</a>.</i>
 
 ## Overview
 
