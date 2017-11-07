@@ -1,4 +1,4 @@
-<i>This is a follow up to a previous <a href="https://aawiegel.github.io/2017/10/17/Poochr.html">post</a>. Try out the web app <a href="https://poochr-182700.appspot.com/">here</a>.</i>
+<i>This is a follow up to a previous <a href="https://aawiegel.github.io/2017/10/17/Poochr.html">post</a>. Try out the web app <a href="https://20171025t165554-dot-poochr-182700.appspot.com/">here</a>.</i>
 
 ## Overview
 
@@ -17,3 +17,6 @@ Pro-tip for Poochr: Not a dog that belongs in an apartment.
 ## GloVe and word embeddings 
 
 To circumvent this, I used a pretrained GloVe model instead. Here, GloVe was trained on Wikipedia and news articles so has a much better semantic understanding of the meaning of words. To train, GloVe creates a table of word-word co-occurances (probabilities) and uses this to generate a smaller column of numbers (vectors) that represents the meaning of the word. Due to the mathematics of how it produces these vectors (remember logarithms from algebra?), the differences between vectors represent the ratio of probabilities of that two words might occur together. Because of this, GloVe performs really well on finding word analogies and similarities between words but struggles with antonyms (much like word2vec). Since words with opposite meanings often appear in the same context (good dog vs. bad dog), these types models tend to think the words are similar when they actually have opposing meanings.
+
+<!--## Feature engineering-->
+
